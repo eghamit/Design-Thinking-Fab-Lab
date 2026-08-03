@@ -79,7 +79,6 @@
   \nointerlineskip
   \begin{beamercolorbox}[wd=\paperwidth,ht=3.2ex,dp=1.4ex,leftskip=0.6cm,rightskip=0.6cm]{frametitle}%
     \usebeamerfont{frametitle}\insertframetitle%
-    \hfill\raisebox{-0.3ex}{\textcolor{dtyellow}{\small\insertframenumber}}%
   \end{beamercolorbox}%
   \vspace*{0.15cm}%
 }
@@ -87,15 +86,52 @@
 % ---- coloured accent rule below content title -------------------------------
 \newcommand{\accentrule}{\textcolor{dtorange}{\rule{\linewidth}{1.2pt}}}
 
-% ---- simple footline --------------------------------------------------------
+%------------------------------------------------------------------------------
+%  FOOTER FIELDS  — edit these four lines to change the footer text
+%------------------------------------------------------------------------------
+\newcommand{\footauthor}{Amit Kumar Singh, Assistant Professor}
+\newcommand{\footinstitute}{Indian Maritime University}
+\newcommand{\foottitle}{Design Thinking \& Fabrication Laboratory}
+\newcommand{\footcenter}{IMU Virtual Classroom}
+
+% two footer bands (both drawn from our palette)
+\setbeamercolor{foot upper}{fg=white,bg=dtblue}
+\setbeamercolor{foot lower}{fg=white,bg=dtnavy}
+
+% ---- bottom-right logo (content frames only; guarded so it builds without it)
+\newcommand{\framelogo}{%
+  \IfFileExists{figures/imu-logo.pdf}{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=south east,xshift=-8pt,yshift=30pt]
+        at (current page.south east)
+        {\includegraphics[height=0.85cm,keepaspectratio]{figures/imu-logo.pdf}};
+    \end{tikzpicture}}{}%
+}
+
+% ---- two-line footer (MASS style, our colours) ------------------------------
 \setbeamertemplate{footline}{%
-  \leavevmode\hbox{%
-  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.2ex,dp=1ex,leftskip=.3cm]{palette primary}%
-    \tiny Design Thinking \& Fabrication Laboratory%
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.2ex,dp=1ex,rightskip=.3cm]{palette primary}%
-    \hfill\tiny\insertsectionhead%
-  \end{beamercolorbox}}%
+  \framelogo%
+  \vbox{\offinterlineskip
+  % --- upper band: author (left) | institute (right) ---
+  \hbox{%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.4ex,dp=1.1ex,leftskip=.35cm]{foot upper}%
+      \tiny\bfseries\footauthor%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.4ex,dp=1.1ex,rightskip=.35cm]{foot upper}%
+      \hfill\tiny\bfseries\footinstitute%
+    \end{beamercolorbox}}%
+  % --- lower band: short title | centre label | slide number ---
+  \hbox{%
+    \begin{beamercolorbox}[wd=.36\paperwidth,ht=2.4ex,dp=1.1ex,leftskip=.35cm]{foot lower}%
+      \tiny\bfseries\foottitle%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.36\paperwidth,ht=2.4ex,dp=1.1ex,center]{foot lower}%
+      \tiny\bfseries\footcenter%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.28\paperwidth,ht=2.4ex,dp=1.1ex,rightskip=.35cm]{foot lower}%
+      \hfill\tiny\bfseries\insertframenumber\,/\,\inserttotalframenumber%
+    \end{beamercolorbox}}%
+  }%
 }
 
 %==============================================================================
