@@ -124,16 +124,16 @@ def kolb_styles():
     # axes
     ax.annotate("", xy=(50, 83), xytext=(50, 15),
                 arrowprops=dict(arrowstyle="<->", color=INK, lw=1.6))
-    ax.annotate("", xy=(88, 50), xytext=(12, 50),
+    ax.annotate("", xy=(85.5, 50), xytext=(14.5, 50),
                 arrowprops=dict(arrowstyle="<->", color=INK, lw=1.6))
     ax.text(50, 85.8, "Concrete Experience (Feeling)", ha="center", fontsize=9.5,
             weight="bold", color=TEAL)
     ax.text(50, 11.5, "Abstract Conceptualisation (Thinking)", ha="center",
             fontsize=9.5, weight="bold", color=ORANGE)
-    ax.text(8, 50, "Reflective\nObservation\n(Watching)", ha="center",
-            va="center", fontsize=8.5, weight="bold", color=BLUE)
-    ax.text(92, 50, "Active\nExperimentation\n(Doing)", ha="center",
-            va="center", fontsize=8.5, weight="bold", color=CORAL)
+    ax.text(7, 50, "Reflective\nObservation\n(Watching)", ha="center",
+            va="center", fontsize=8, weight="bold", color=BLUE)
+    ax.text(93, 50, "Active\nExperimentation\n(Doing)", ha="center",
+            va="center", fontsize=8, weight="bold", color=CORAL)
     quads = [
         (32, 68, PLUM, "DIVERGING", "Feel + Watch", "Imaginative, empathic,\nbrainstorms many ideas"),
         (68, 68, TEAL, "ACCOMMODATING", "Feel + Do", "Hands-on, intuitive,\nlearns by trial"),
@@ -142,7 +142,7 @@ def kolb_styles():
     ]
     for x, y, col, nm, tag, desc in quads:
         rbox(ax, x, y, 31, 26, col, radius=0.02, alpha=0.92)
-        ax.text(x, y + 8, nm, ha="center", va="center", fontsize=12.5,
+        ax.text(x, y + 8, nm, ha="center", va="center", fontsize=10.5,
                 weight="bold", color="white")
         ax.text(x, y + 2.5, tag, ha="center", va="center", fontsize=9.5,
                 color="white", style="italic")
@@ -152,36 +152,42 @@ def kolb_styles():
 
 
 def memory_process():
-    fig, ax = new_ax(11, 5.6)
-    title(ax, "The Memory Process — Information-Processing Model", y=95)
+    fig, ax = new_ax(12, 6.2)
+    title(ax, "The Memory Process", y=95, fs=18,
+          sub="The information-processing model of memory")
     boxes = [
-        (15, 55, SKY, "Sensory\nMemory", "Sight, sound, touch\n(< 1 second)", 20),
-        (44, 55, BLUE, "Short-Term /\nWorking\nMemory", "~7 items,\n15–30 seconds", 22),
-        (78, 55, TEAL, "Long-Term\nMemory", "Vast, potentially\npermanent store", 20),
+        (16, 62, SKY,  "SENSORY\nMEMORY",          "sight · sound · touch\n(< 1 second)"),
+        (50, 62, BLUE, "SHORT-TERM\nWORKING MEMORY", "~7 items\n15–30 seconds"),
+        (84, 62, TEAL, "LONG-TERM\nMEMORY",         "vast, potentially\npermanent"),
     ]
-    for x, y, col, nm, desc, w in boxes:
-        rbox(ax, x, y, w, 18, col, text=nm, fs=11.5)
-        ax.text(x, y - 14, desc, ha="center", va="center", fontsize=9,
-                color="#42525A", style="italic")
-    arrow(ax, (25, 55), (33, 55), color=INK, lw=2.4)
-    ax.text(29, 61, "Attention", ha="center", fontsize=8.5, color=NAVY,
+    for x, y, col, nm, detail in boxes:
+        rbox(ax, x, y, 27, 16, col, radius=0.02)
+        ax.text(x, y + 3.5, nm, ha="center", va="center", fontsize=9,
+                weight="bold", color="white")
+        ax.text(x, y - 4.5, detail, ha="center", va="center", fontsize=8,
+                color="white", style="italic")
+    # forward flow — arrows in the gaps, labels above (clear of the boxes)
+    arrow(ax, (29.5, 62), (36.5, 62), color=INK, lw=2.6)
+    ax.text(33, 74, "Attention", ha="center", fontsize=9, color=NAVY,
             weight="bold")
-    arrow(ax, (55, 55), (68, 55), color=INK, lw=2.4)
-    ax.text(60.5, 61, "Encoding /\nRehearsal", ha="center", fontsize=8.5,
-            color=NAVY, weight="bold")
-    arrow(ax, (68, 49), (53, 49), color=CORAL, lw=2.4)
-    ax.text(60.5, 43.5, "Retrieval", ha="center", fontsize=8.5, color=CORAL,
+    arrow(ax, (63.5, 64), (70.5, 64), color=INK, lw=2.6)
+    ax.text(67, 74, "Encoding", ha="center", fontsize=9, color=NAVY,
+            weight="bold")
+    # retrieval (backward) — below the forward arrow
+    arrow(ax, (70.5, 59), (63.5, 59), color=CORAL, lw=2.6)
+    ax.text(67, 51, "Retrieval", ha="center", fontsize=9, color=CORAL,
             weight="bold")
     # forgetting exits
-    for x, lbl in [(15, "decay"), (43, "displacement")]:
-        arrow(ax, (x, 46), (x, 34), color="#9AA5AB", lw=1.8, mut=15)
-        ax.text(x, 30, "Forgetting\n(%s)" % lbl, ha="center", fontsize=8.2,
-                color="#9AA5AB")
-    # retention problem callout
-    rbox(ax, 78, 24, 40, 14, CLOUD, ec=GRID, tc=INK,
-         text="Retention problems: interference, weak encoding, lack of cues.\n"
-              "Enhancement: chunking, mnemonics, spaced rehearsal, elaboration.",
-         fs=9.2, weight="normal", lw=1.3)
+    for x, lbl in [(16, "decay"), (50, "displacement")]:
+        arrow(ax, (x, 53), (x, 44), color="#9AA5AB", lw=2, mut=15)
+        ax.text(x, 40, "Forgetting\n(%s)" % lbl, ha="center", fontsize=8.5,
+                color="#7C878E")
+    # retention / enhancement callout (sized to hold its text)
+    rbox(ax, 50, 22, 88, 15, CLOUD, ec=GRID, tc=INK, text="", lw=1.4)
+    ax.text(50, 25.5, "Retention problems:  interference · weak encoding · lack of cues",
+            ha="center", fontsize=9.5, weight="bold", color=NAVY)
+    ax.text(50, 19.5, "Enhancement:  chunking · mnemonics · spaced rehearsal · elaboration",
+            ha="center", fontsize=9.5, color="#42525A")
     save(fig, "memory_process.png", FIG)
 
 
@@ -234,26 +240,26 @@ def empathy():
           sub="Understanding emotions is the gateway to human-centred design")
     # left: three types of empathy
     types = [
-        ("Cognitive\nEmpathy", "Understanding\nanother's perspective", BLUE, "◉"),
-        ("Emotional\nEmpathy", "Feeling what\nanother feels", CORAL, "♥"),
-        ("Compassionate\nEmpathy", "Moved to help\nand take action", TEAL, "✧"),
+        ("Cognitive Empathy", "understand another's view", BLUE, "◉"),
+        ("Emotional Empathy", "feel what others feel", CORAL, "♥"),
+        ("Compassionate Empathy", "moved to help & act", TEAL, "✧"),
     ]
     for i, (nm, desc, col, sym) in enumerate(types):
         y = 70 - i * 21
-        badge(ax, 14, y, 6, col, sym, fs=18, tc="white")
-        rbox(ax, 43, y, 38, 16, "white", ec=col, tc=INK, text="", lw=2)
-        ax.text(43, y + 3.5, nm.replace("\n", " "), ha="center", va="center",
-                fontsize=11, weight="bold", color=col)
-        ax.text(43, y - 3.5, desc.replace("\n", " "), ha="center", va="center",
-                fontsize=9, color="#42525A")
+        badge(ax, 11, y, 5.5, col, sym, fs=17, tc="white")
+        rbox(ax, 45, y, 46, 17, "white", ec=col, tc=INK, text="", lw=2)
+        ax.text(45, y + 3.6, nm, ha="center", va="center",
+                fontsize=10, weight="bold", color=col)
+        ax.text(45, y - 4, desc, ha="center", va="center",
+                fontsize=8.8, color="#42525A", style="italic")
     # right: EI pillars
-    rbox(ax, 84, 58, 28, 58, CLOUD, ec=GRID, tc=INK, text="", lw=1.4)
-    ax.text(84, 82, "Goleman's EI Pillars", ha="center", fontsize=10.5,
+    rbox(ax, 85, 58, 28, 58, CLOUD, ec=GRID, tc=INK, text="", lw=1.4)
+    ax.text(85, 82, "Goleman's EI Pillars", ha="center", fontsize=10,
             weight="bold", color=NAVY)
     pillars = ["Self-awareness", "Self-regulation", "Motivation",
                "Empathy", "Social skills"]
     for i, p in enumerate(pillars):
-        chip(ax, 84, 74 - i * 8.2, 24, 6, CYCLE[i], p, fs=9.5)
+        chip(ax, 85, 74 - i * 8.2, 25, 6, CYCLE[i], p, fs=8.8)
     ax.text(50, 10, "Assessing empathy with peers → empathy maps, "
             "shadowing, and active-listening interviews",
             ha="center", fontsize=10, style="italic", color="#5B6B73")
@@ -310,13 +316,13 @@ def double_diamond():
     d2 = Polygon([(54, y0), (76, y0 + h/2), (98, y0), (76, y0 - h/2)],
                  closed=True, facecolor=ORANGE, alpha=0.9, ec="white", lw=2)
     ax.add_patch(d1); ax.add_patch(d2)
-    ax.text(22, y0, "DISCOVER", ha="center", fontsize=11, weight="bold",
+    ax.text(22, y0, "DISCOVER", ha="center", fontsize=10, weight="bold",
             color="white")
-    ax.text(43, y0, "DEFINE", ha="center", fontsize=11, weight="bold",
+    ax.text(43, y0, "DEFINE", ha="center", fontsize=10, weight="bold",
             color="white")
-    ax.text(65, y0, "DEVELOP", ha="center", fontsize=11, weight="bold",
+    ax.text(65, y0, "DEVELOP", ha="center", fontsize=10, weight="bold",
             color="white")
-    ax.text(87, y0, "DELIVER", ha="center", fontsize=11, weight="bold",
+    ax.text(87, y0, "DELIVER", ha="center", fontsize=10, weight="bold",
             color="white")
     # diverge / converge halves
     for xx, lbl in [(22, "diverge"), (43, "converge"),
@@ -435,15 +441,16 @@ def prototype_fidelity():
         ("3-D printed / functional", "looks & works", ORANGE, 60),
         ("Pilot / production-ready", "near-final product", CORAL, 74),
     ]
+    left = 22                                  # common left edge (bars grow rightward)
     for nm, desc, col, y in rungs:
-        w = 30 + (y - 18) * 0.75
-        rbox(ax, 30, y, w, 10, col, text=nm, fs=11)
-        ax.text(30 + w/2 + 3, y, desc, ha="left", va="center", fontsize=9,
+        w = 24 + (y - 18) * 0.55
+        rbox(ax, left + w / 2, y, w, 10, col, text=nm, fs=10)
+        ax.text(left + w + 3, y, desc, ha="left", va="center", fontsize=8.6,
                 color="#42525A", style="italic")
-    ax.annotate("", xy=(12, 80), xytext=(12, 12),
+    ax.annotate("", xy=(15, 82), xytext=(15, 10),
                 arrowprops=dict(arrowstyle="->", color=INK, lw=2))
-    ax.text(9, 46, "increasing fidelity, cost & time →", rotation=90,
-            ha="center", va="center", fontsize=9.5, color=NAVY, weight="bold")
+    ax.text(11, 46, "increasing fidelity, cost & time", rotation=90,
+            ha="center", va="center", fontsize=9, color=NAVY, weight="bold")
     save(fig, "prototype_fidelity.png", FIG)
 
 
@@ -516,14 +523,14 @@ def cx_radar():
 def expectation_alignment():
     fig, ax = new_ax(10.5, 5.2)
     title(ax, "Aligning Customer Expectations with the Product", y=95)
-    # two overlapping circles (venn)
-    ax.add_patch(Circle((38, 48), 22, facecolor=BLUE, alpha=0.35, ec=BLUE, lw=2))
-    ax.add_patch(Circle((62, 48), 22, facecolor=ORANGE, alpha=0.35, ec=ORANGE, lw=2))
-    ax.text(28, 48, "Customer\nExpectations", ha="center", va="center",
-            fontsize=11, weight="bold", color=NAVY)
-    ax.text(72, 48, "Product\nExperience", ha="center", va="center",
-            fontsize=11, weight="bold", color=NAVY)
-    ax.text(50, 48, "SATIS-\nFACTION", ha="center", va="center", fontsize=11,
+    # two overlapping circles (venn) — separated enough to label cleanly
+    ax.add_patch(Circle((36, 48), 22, facecolor=BLUE, alpha=0.32, ec=BLUE, lw=2))
+    ax.add_patch(Circle((64, 48), 22, facecolor=ORANGE, alpha=0.32, ec=ORANGE, lw=2))
+    ax.text(26, 48, "Customer\nExpectations", ha="center", va="center",
+            fontsize=10.5, weight="bold", color=NAVY)
+    ax.text(74, 48, "Product\nExperience", ha="center", va="center",
+            fontsize=10.5, weight="bold", color=NAVY)
+    ax.text(50, 48, "SATIS-\nFACTION", ha="center", va="center", fontsize=10.5,
             weight="bold", color=CORAL)
     ax.text(50, 14, "Gap too wide → disappointment  ·  aligned → "
             "loyalty & advocacy", ha="center", fontsize=10, style="italic",
@@ -538,24 +545,28 @@ def route_map():
     fig, ax = new_ax(11, 6.4)
     title(ax, "Fab-Lab Route Map — From Survey to Service Blueprint", y=97)
     steps = [
-        ("1  Conduct surveys", "individual or group observe & interview", BLUE),
-        ("2  Identify a problem", "spot a real, felt pain point", TEAL),
-        ("3  Frame problem statement", "clear, user-centred, actionable", MOSS),
-        ("4  Apply CREATE tool", "Combine, Rearrange, Enhance, Adapt,\nTurn-around, Eliminate", ORANGE),
-        ("5  Draw product / system", "sketch after applying triggers", CORAL),
-        ("6  Build Customer Journey Map", "before, during & after the scenario", PLUM),
-        ("7  Frame 2–3 HMW questions", "How Might We… re-open the problem", BLUE),
-        ("8  Design Service Blueprint", "identify touch-points from the CJM", NAVY),
+        ("1", "Conduct surveys", "observe & interview users", BLUE),
+        ("2", "Identify a problem", "spot a real, felt pain point", TEAL),
+        ("3", "Frame the problem", "clear, user-centred, actionable", MOSS),
+        ("4", "Apply CREATE tool", "Combine · Rearrange · Enhance ·\nAdapt · Turn-around · Eliminate", ORANGE),
+        ("5", "Draw the product", "sketch after applying triggers", CORAL),
+        ("6", "Build the CJM", "map before, during & after", PLUM),
+        ("7", "Frame HMW questions", "How Might We… re-open it", BLUE),
+        ("8", "Design blueprint", "identify touch-points from CJM", NAVY),
     ]
-    y = 88
-    dy = 10.2
-    for i, (nm, desc, col) in enumerate(steps):
+    y = 90
+    dy = 10.4
+    bx, bw = 27, 44          # box centre-x and width
+    for i, (num, nm, desc, col) in enumerate(steps):
         yy = y - i * dy
-        rbox(ax, 26, yy, 40, 8.2, col, text=nm, fs=11, ha="center")
-        ax.text(50, yy, desc, ha="left", va="center", fontsize=8.8,
+        rbox(ax, bx, yy, bw, 8.4, col, radius=0.03)
+        badge(ax, bx - bw/2 + 5, yy, 3, "white", num, tc=col, fs=11, ec=col, lw=1.6)
+        ax.text(bx - bw/2 + 9.5, yy, nm, ha="left", va="center", fontsize=9.3,
+                weight="bold", color="white")
+        ax.text(bx + bw/2 + 3, yy, desc, ha="left", va="center", fontsize=8.6,
                 color="#42525A")
         if i < len(steps) - 1:
-            arrow(ax, (26, yy - 4.1), (26, yy - dy + 4.1), color="#9AA5AB",
+            arrow(ax, (bx, yy - 4.2), (bx, yy - dy + 4.2), color="#9AA5AB",
                   lw=1.8, mut=14)
     save(fig, "route_map.png", FIG)
 
@@ -654,12 +665,12 @@ def hmw():
             ha="center", va="center", fontsize=10, style="italic", color=INK)
     arrow(ax, (50, 39), (50, 31), color=NAVY, lw=2.4)
     hmws = [
-        "How might we make assembly feel effortless?",
-        "How might we guide the user step-by-step?",
-        "How might we remove the need to assemble at all?",
+        "How might we make assembly effortless?",
+        "How might we guide users step-by-step?",
+        "How might we remove assembly entirely?",
     ]
     for i, q in enumerate(hmws):
-        rbox(ax, 50, 26 - i * 8.5, 66, 6.6, CYCLE[i], text=q, fs=10)
+        rbox(ax, 50, 26 - i * 8.5, 82, 6.6, CYCLE[i], text=q, fs=9.5)
     ax.text(50, 2, "Frame 2–3 HMW questions — broad enough to inspire, "
             "narrow enough to act", ha="center", fontsize=8.8, style="italic",
             color="#5B6B73")
