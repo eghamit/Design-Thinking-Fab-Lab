@@ -92,7 +92,7 @@
 \newcommand{\footauthor}{Amit Kumar Singh, Assistant Professor}
 \newcommand{\footinstitute}{Indian Maritime University}
 \newcommand{\foottitle}{Design Thinking \& Fabrication Laboratory}
-\newcommand{\footcenter}{IMU Virtual Classroom}
+% centre label = current section (unit) name, via \insertsectionhead
 
 % two footer bands (both drawn from our palette)
 \setbeamercolor{foot upper}{fg=white,bg=dtblue}
@@ -126,7 +126,7 @@
       \tiny\bfseries\foottitle%
     \end{beamercolorbox}%
     \begin{beamercolorbox}[wd=.36\paperwidth,ht=2.4ex,dp=1.1ex,center]{foot lower}%
-      \tiny\bfseries\footcenter%
+      \tiny\bfseries\insertsectionhead%
     \end{beamercolorbox}%
     \begin{beamercolorbox}[wd=.28\paperwidth,ht=2.4ex,dp=1.1ex,rightskip=.35cm]{foot lower}%
       \hfill\tiny\bfseries\insertframenumber\,/\,\inserttotalframenumber%
