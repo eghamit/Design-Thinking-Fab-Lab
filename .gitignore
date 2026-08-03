@@ -1,0 +1,19 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+build*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# scratch
+figures/_contact.png
